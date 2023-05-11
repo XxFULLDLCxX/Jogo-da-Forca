@@ -1,0 +1,29 @@
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/* Flex Utilities - Aqui estão as classes utilitárias para flexbox. */
+
+.center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.y-center {
+    display: flex;
+    align-items: center;
+}
+
+.x-center {
+    display: flex;
+    justify-content: center;
+}
+
+/* Os estilos adicionais estão dispostos abaixo, em ordem de estruturação do HTML. */
+
+.content {}
