@@ -27,3 +27,82 @@ body {
 /* Os estilos adicionais estão dispostos abaixo, em ordem de estruturação do HTML. */
 
 .content {}
+
+.game {
+    display: flex;
+    justify-content: space-between;
+}
+
+.game img {
+    margin: 59px 38px;
+    height: 467px;
+    width: 400px;
+}
+
+.game button {
+    color: #FFFFFF;
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 23px;
+    letter-spacing: 0em;
+    text-align: center;
+
+    margin-left: auto;
+
+    height: 60px;
+    width: 200px;
+    border-radius: 8px;
+    background-color: #27AE60;
+    border: none;
+    outline: none;
+}
+
+.game p {
+    color: #000000;
+    font-family: 'Noto Sans', sans-serif;
+    font-size: 50px;
+    font-weight: 700;
+    line-height: 68px;
+    letter-spacing: 0em;
+    text-align: center;
+
+    margin-right: 11px;
+
+    height: 68px;
+    width: max-content;
+}
+
+.game>div {
+    padding-right: 53px;
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-end;
+}
+
+.letters {
+    height: 91px;
+    width: 664px;
+    border-radius: 3px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 11px auto;
+}
+
+.letters button {
+    width: 40px;
+    height: 40px;
+
+    background: #E1ECF4;
+    border: 1px solid #7AA7C7;
+    border-radius: 3px;
+}
+
+.letters button[disabled] {
+    color: #798A9F;
+    background-color: #9FAAB5;
+    border: 1px solid #7AA7C7;
+}
