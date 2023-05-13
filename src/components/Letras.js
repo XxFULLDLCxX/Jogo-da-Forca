@@ -1,10 +1,12 @@
+import removeDiacritics from "../core";
+
 export default function Letras({ props: { error_count, word, alphabet, letters, ...setters } }) {
     const pressedKey = (letter) => {
         setters.setLetters([...letters, letter]);
-        const guessed_letters = word.hidden.split('').map(l =>
+        const guessed_letters = removeDiacritics(word.hidden).split('').map(l =>
             [...letters, letter].includes(l) ? l : ' _').join('').includes(' _');
 
-        if (!word.hidden.includes(letter)) {
+        if (!removeDiacritics(word.hidden).includes(letter)) {
             error_count++;
             setters.setErrorCount(error_count);
         }
