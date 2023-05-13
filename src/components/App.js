@@ -6,16 +6,13 @@ import words from "../palavras";
 export default function App() {
 
   const [error_count, setErrorCount] = useState(0);
-  const [hidden_word, setHiddenWord] = useState('quarentena');
-  const [letters, setLetters] = useState({
-    pressed: [],
-    disabled: [...alphabet],
-  });
+  const [word, setWord] = useState({ hidden: '__________', color: 'black' });
+  const [letters, setLetters] = useState([...alphabet]);
 
   return (
     <div className="App">
-      <Jogo props={{ error_count, hidden_word, words, letters, setHiddenWord, setLetters }} />
-      <Letras props={{ error_count, hidden_word, alphabet, letters, setLetters, setErrorCount }} />
+      <Jogo props={{ error_count, word, words, letters, setWord, setLetters, setErrorCount }} />
+      <Letras props={{ error_count, word, alphabet, letters, setWord, setLetters, setErrorCount }} />
     </div>
   );
 }

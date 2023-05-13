@@ -1,25 +1,26 @@
-export default function Letras({ props: { error_count, hidden_word, alphabet, letters, ...setters } }) {
+export default function Letras({ props: { error_count, word, alphabet, letters, ...setters } }) {
     const pressedKey = (letter) => {
-        setters.setLetters({
-            pressed: [...letters.pressed, letter],
-            disabled: [...letters.disabled, letter]
-        });
-        if (!hidden_word.includes(letter)) {
+        setters.setLetters([...letters, letter]);
+        const guessed_letters = word.hidden.split('').map(l =>
+            [...letters, letter].includes(l) ? l : ' _').join('').includes(' _');
+
+        if (!word.hidden.includes(letter)) {
             error_count++;
             setters.setErrorCount(error_count);
         }
         if (error_count === 6) {
-            setters.setLetters({
-                pressed: [],
-                disabled: [...alphabet]
-            });
+            setters.setLetters([...alphabet]);
+            setters.setWord({ ...word, color: 'red' });
+        } else if (!guessed_letters) {
+            setters.setWord({ ...word, color: 'green' });
         }
+
     };
 
     return (
         <div className="letters">
             {alphabet.map(l =>
-                <button key={l} onClick={() => pressedKey(l)} disabled={letters.disabled.includes(l)} >{l}</button>)}
+                <button key={l} onClick={() => pressedKey(l)} disabled={letters.includes(l)} >{l}</button>)}
         </div>
     );
 }

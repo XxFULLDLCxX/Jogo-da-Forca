@@ -6,25 +6,21 @@ import forca_4 from '../assets/img/forca4.png';
 import forca_5 from '../assets/img/forca5.png';
 import forca_6 from '../assets/img/forca6.png';
 
-export default function Jogo({ props: { error_count, hidden_word, words, letters, ...setters } }) {
+export default function Jogo({ props: { error_count, word, words, letters, ...setters } }) {
     const images = [forca_0, forca_1, forca_2, forca_3, forca_4, forca_5, forca_6];
     const choiceWord = () => {
-        setters.setLetters({ ...letters, disabled: [] });
-        setters.setHiddenWord(words[Math.floor(Math.random() * words.length)]);
-    };
-    const showGuessedLetters = (event) => {
-        const guessed_letters = hidden_word.split('').map(l => letters.pressed.includes(l) ? l : ' _').join('');
-        if (guessed_letters.includes(' _')) {
-            console.log(event);
-        }
-        return guessed_letters;
+        setters.setLetters([]);
+        setters.setErrorCount(0);
+        setters.setWord({ hidden: words[Math.floor(Math.random() * words.length)], color: 'black' });
     };
     return (
         <div className="game">
             <img src={images[error_count]} />
             <div>
                 <button onClick={choiceWord}>Escolher Palavra</button>
-                <p>{showGuessedLetters()}</p>
+                <p style={{ color: word.color }}>
+                    {word.hidden.split('').map(l => letters.includes(l) ? l : ' _').join('')}
+                </p>
             </div>
         </div>
     );
