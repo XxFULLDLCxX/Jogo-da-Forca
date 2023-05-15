@@ -6,16 +6,18 @@ import { useState } from "react";
 import { GlobalStyle } from "../style";
 
 export default function App() {
-  const [error_count, setErrorCount] = useState(0);
-  const [word, setWord] = useState({ hidden: "__________", color: "black" });
-  const [letters, setLetters] = useState([...alphabet]);
+  const [word, setWord] = useState({ hidden: "_ _ _ _ _ _ _ _", color: "black" });
+  const [letters, setLetters] = useState({ pressed: [], disabled: [...alphabet], errors: 0 });
+  const [guess, setGuess] = useState({ value: "", disabled: true });
+
+  const setters = { setWord, setLetters, setGuess };
 
   return (
     <>
       <GlobalStyle />
-      <Jogo props={{ error_count, word, words, letters, setWord, setLetters, setErrorCount }} />
-      <Letras props={{ error_count, word, alphabet, letters, setWord, setLetters, setErrorCount }} />
-      <Chute props={{ word, alphabet, setWord, setLetters, setErrorCount }} />
+      <Jogo props={{ guess, letters, word, words }} setters={setters} />
+      <Letras props={{ alphabet, guess, letters, word }} setters={setters} />
+      <Chute props={{ alphabet, guess, letters, word }} setters={setters} />
     </>
   );
 }

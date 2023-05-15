@@ -93,6 +93,10 @@ export const Guess = styled.div`
     outline: none;
   }
 
+  input:disabled {
+    background-color: #88aaaa;
+  }
+
   button {
     color: #3c76a1;
 
@@ -107,6 +111,10 @@ export const Guess = styled.div`
     background: #e1ecf4;
     border: 1px solid #7aa7c7;
     border-radius: 3px;
+  }
+
+  button:disabled {
+    background-color: skyblue;
   }
 `;
 

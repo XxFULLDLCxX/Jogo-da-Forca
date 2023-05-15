@@ -1,32 +1,30 @@
-import removeDiacritics from "../core";
+import { formatRevealWord, removeDiacritics } from "../core";
 import { Letters } from "../style";
 
-export default function Letras({ props: { error_count, word, alphabet, letters, ...setters } }) {
+export default function Letras({ props: { alphabet, guess, letters, word }, setters }) {
   const pressedKey = (letter) => {
-    setters.setLetters([...letters, letter]);
-    const guessed_letters = removeDiacritics(word.hidden)
-      .split("")
-      .map((l) => ([...letters, letter].includes(l) ? l : " _"))
-      .join("")
-      .includes(" _");
+    const new_letters = { ...letters, pressed: [...letters.pressed, letter], disabled: [...letters.disabled, letter] };
+    setters.setWord({ ...word, reveal: formatRevealWord(word.hidden, new_letters.pressed) });
 
     if (!removeDiacritics(word.hidden).includes(letter)) {
-      error_count++;
-      setters.setErrorCount(error_count);
+      new_letters.errors++;
     }
-    if (error_count === 6) {
-      setters.setLetters([...alphabet]);
-      setters.setWord({ ...word, color: "red" });
-    } else if (!guessed_letters) {
-      setters.setLetters([...alphabet]);
-      setters.setWord({ ...word, color: "green" });
+    if (new_letters.errors === 6) {
+      guess.disabled = true;
+      new_letters.disabled = [...alphabet];
+      setters.setWord({ ...word, color: "red", reveal: word.hidden });
+    } else if (!formatRevealWord(word.hidden, new_letters.pressed).includes(" _")) {
+      guess.disabled = true;
+      new_letters.disabled = [...alphabet];
+      setters.setWord({ ...word, color: "green", reveal: word.hidden });
     }
+    setters.setLetters({ ...new_letters });
   };
 
   return (
     <Letters>
       {alphabet.map((l) => (
-        <button data-test="letter" key={l} onClick={() => pressedKey(l)} disabled={letters.includes(l)}>
+        <button data-test="letter" key={l} onClick={() => pressedKey(l)} disabled={letters.disabled.includes(l)}>
           {l.toUpperCase()}
         </button>
       ))}
